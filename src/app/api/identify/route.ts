@@ -43,7 +43,7 @@ export async function POST(request: Request) {
     });
 
     const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini", // or change to the model you prefer
+      model: "o1", // or change to the model you prefer
       messages: [
         {
           role: "user",
