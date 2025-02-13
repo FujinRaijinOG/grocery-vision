@@ -1,4 +1,4 @@
-// app/page.tsx
+// src/app/page.tsx
 "use client";
 
 import React, { useState } from "react";
@@ -78,9 +78,13 @@ const Home: React.FC = () => {
       }
       const data = await res.json();
       setResult(JSON.stringify(data, null, 2));
-    } catch (err: any) {
+    } catch (err) {
+      let message = "Error occurred";
+      if (err instanceof Error) {
+        message = err.message;
+      }
       console.error(err);
-      setError(err.message || "Error occurred");
+      setError(message);
     }
     setLoading(false);
   };

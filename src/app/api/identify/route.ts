@@ -1,4 +1,4 @@
-// app/api/identify/route.ts
+// src/app/api/identify/route.ts
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
@@ -54,11 +54,12 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({ result: response.choices[0] });
-  } catch (error: any) {
+  } catch (error) {
+    let message = "Internal server error";
+    if (error instanceof Error) {
+      message = error.message;
+    }
     console.error("Error calling OpenAI API:", error);
-    return NextResponse.json(
-      { error: error.message || "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
