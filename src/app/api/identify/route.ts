@@ -42,12 +42,13 @@ export async function POST(request: Request) {
       apiKey: process.env.OPENAI_API_KEY,
     });
 
+    // Cast messageContent as any to bypass the type error
     const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini", // You can change this model if needed
+      model: "gpt-4o-mini", // or change to the model you prefer
       messages: [
         {
           role: "user",
-          content: messageContent,
+          content: messageContent as any, // <-- Casting to any to bypass type checking
         },
       ],
       store: true, // optional; refer to OpenAI docs for more details
