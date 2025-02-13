@@ -42,14 +42,13 @@ export async function POST(request: Request) {
       apiKey: process.env.OPENAI_API_KEY,
     });
 
-    // Disable ESLint rule for the next line so we can cast to any
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini", // or change to the model you prefer
       messages: [
         {
           role: "user",
-          content: messageContent as any, // Bypass type checking here
+          // Disable the rule for this cast inline
+          content: messageContent as any, // eslint-disable-line @typescript-eslint/no-explicit-any
         },
       ],
       store: true, // optional; refer to OpenAI docs for more details
